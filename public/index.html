@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Path Visualizer</title>
+  <script type="text/javascript" src="../pathfinding/pathfinding-browser.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <style>
+    #board td {
+      /* border: 1px solid rgb(175, 216, 248); */
+      width: 25px;
+      height: 25px;
+    }
+
+    table {
+      margin: auto;
+    }
+
+    td,
+    th {
+      padding: 0;
+    }
+
+    table {
+      border-spacing: 0;
+      /* border-collapse: collapse; */
+    }
+
+    .unvisited {
+      border: 1px solid rgb(175, 216, 248);
+      background-color: white;
+    }
+
+    .start {
+      border: 1px solid rgb(175, 216, 248);
+      background-color: green;
+    }
+
+    .end {
+      border: 1px solid rgb(175, 216, 248);
+      background-color: red;
+    }
+
+    .visited {
+      border: 1px solid rgb(175, 216, 248);
+      animation-name: visitedAnimation;
+      animation-duration: 1.5s;
+      animation-timing-function: ease-out;
+      animation-delay: 0;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+    }
+
+
+    @keyframes visitedAnimation {
+      0% {
+        transform: scale(.3);
+        background-color: rgba(0, 0, 66, 0.75);
+        border-radius: 100%;
+      }
+
+      50% {
+        background-color: rgba(17, 104, 217, 0.75);
+      }
+
+      75% {
+        transform: scale(1.2);
+        background-color: rgba(0, 217, 159, 0.75);
+      }
+
+      100% {
+        transform: scale(1.0);
+        background-color: rgba(0, 190, 218, 0.75);
+      }
+    }
+
+    input {
+      padding: 4px 2px;
+      border: solid 1px #aacfe4;
+      width: 70px;
+      margin: 10;
+    }
+
+    td,
+    th {
+      padding: 0;
+    }
+
+    .container {
+      display: block;
+      margin: auto;
+    }
+
+    body {
+      font-family: "Lucida Console", Courier, monospace;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .wall {
+      border: 1px solid rgb(175, 216, 248);
+      background-color: black;
+    }
+
+    form {
+      padding: 50px;
+      width: 500px;
+      height: auto;
+      margin: auto;
+    }
+    li
+    {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 align="center">Fire exit simulation</h1>
+  </header>
+  <div class="container">
+    <form action="#" class="form-inline justify-content-center">
+      <p>Enter Dimension of a room in ft. :</p>
+      <li>
+        <ul><label>Height</label><input class="form-control" id="gridRow" type="number"></ul>
+        <ul><label>Width</label><input class="form-control" id="gridCol" type="number"></ul>
+        <ul><button class="btn btn-dark" type="submit" onclick="createGrid()">Visualizer</button></ul>
+        <ul><button class="btn btn-dark" onclick="findPath()">find path</button></ul>
+      </li>
+    </form>
+    <table id="board"></table>
+  </div>
+</body>
+
+<script src="../main.js" type="text/javascript"></script>
+
+</html>
