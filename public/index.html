@@ -45,6 +45,10 @@
       border: 1px solid rgb(175, 216, 248);
       background-color: red;
     }
+    .fire {
+      border: 1px solid rgb(175, 216, 248);
+      background-color:orange;
+    }
 
     .visited {
       border: 1px solid rgb(175, 216, 248);
@@ -128,10 +132,12 @@
   </header>
   <div class="container">
     <form action="#" class="form-inline justify-content-center">
-      <p>Enter Dimension of a room in ft. :</p>
+      <p>Enter Dimension of a room in Meters :</p>
       <li>
         <ul><label>Height</label><input class="form-control" id="gridRow" type="number"></ul>
         <ul><label>Width</label><input class="form-control" id="gridCol" type="number"></ul>
+        <ul><label>Fire Spread Rate</label><input class="form-control" id="fireRate" type="number"></ul>
+        <ul><label>Person Speed</label><input class="form-control" id="personSpeed" type="number"></ul>
         <ul><button class="btn btn-dark" type="submit" onclick="createGrid()">Visualizer</button></ul>
         <ul><button class="btn btn-dark" onclick="findPath()">find path</button></ul>
       </li>
