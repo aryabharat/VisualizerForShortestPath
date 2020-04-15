@@ -4,3 +4,8 @@
 - [VisualizerForShortestPath](https://aryabharat.github.io/VisualizerForShortestPath/public/)
 
 - Made using HTML,CSS,JS
+
+## Future Goal
+- Make it a fire exit simulation app.
+- Give shortest path in emergency (2D/3D)
+
