@@ -4,148 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Path Visualizer</title>
-  <script type="text/javascript" src="../pathfinding/pathfinding-browser.js"></script>
+  <title>Fire Exit Simulation</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <style>
-    #board td {
-      /* border: 1px solid rgb(175, 216, 248); */
-      width: 25px;
-      height: 25px;
-    }
-
-    table {
-      margin: auto;
-    }
-
-    td,
-    th {
-      padding: 0;
-    }
-
-    table {
-      border-spacing: 0;
-      /* border-collapse: collapse; */
-    }
-
-    .unvisited {
-      border: 1px solid rgb(175, 216, 248);
-      background-color: white;
-    }
-
-    .start {
-      border: 1px solid rgb(175, 216, 248);
-      background-color: green;
-    }
-
-    .end {
-      border: 1px solid rgb(175, 216, 248);
-      background-color: red;
-    }
-    .fire {
-      border: 1px solid rgb(175, 216, 248);
-      background-color:orange;
-    }
-
-    .visited {
-      border: 1px solid rgb(175, 216, 248);
-      animation-name: visitedAnimation;
-      animation-duration: 1.5s;
-      animation-timing-function: ease-out;
-      animation-delay: 0;
-      animation-direction: alternate;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-      animation-play-state: running;
-    }
-
-
-    @keyframes visitedAnimation {
-      0% {
-        transform: scale(.3);
-        background-color: rgba(0, 0, 66, 0.75);
-        border-radius: 100%;
-      }
-
-      50% {
-        background-color: rgba(17, 104, 217, 0.75);
-      }
-
-      75% {
-        transform: scale(1.2);
-        background-color: rgba(0, 217, 159, 0.75);
-      }
-
-      100% {
-        transform: scale(1.0);
-        background-color: rgba(0, 190, 218, 0.75);
-      }
-    }
-
-    input {
-      padding: 4px 2px;
-      border: solid 1px #aacfe4;
-      width: 70px;
-      margin: 10;
-    }
-
-    td,
-    th {
-      padding: 0;
-    }
-
-    .container {
-      display: block;
-      margin: auto;
-    }
-
-    body {
-      font-family: "Lucida Console", Courier, monospace;
-      padding: 0px;
-      margin: 0px;
-    }
-
-    .wall {
-      border: 1px solid rgb(175, 216, 248);
-      background-color: black;
-    }
-
-    form {
-      padding: 50px;
-      width: 500px;
-      height: auto;
-      margin: auto;
-    }
-    li
-    {
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="./style/style.css">
 </head>
 
 <body>
   <header>
-    <h1 align="center">Fire exit simulation</h1>
+    <h1 align="center">Fire Exit Simulation</h1>
   </header>
-  <div class="container">
-    <form action="#" class="form-inline justify-content-center">
-      <p>Enter Dimension of a room in Meters :</p>
-      <li>
-        <ul><label>Height</label><input class="form-control" id="gridRow" type="number"></ul>
-        <ul><label>Width</label><input class="form-control" id="gridCol" type="number"></ul>
-        <ul><label>Fire Spread Rate</label><input class="form-control" id="fireRate" type="number"></ul>
-        <ul><label>Person Speed</label><input class="form-control" id="personSpeed" type="number"></ul>
-        <ul><button class="btn btn-dark" type="submit" onclick="createGrid()">Visualizer</button></ul>
-        <ul><button class="btn btn-dark" onclick="findPath()">find path</button></ul>
-      </li>
-    </form>
-    <table id="board"></table>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-md-2">
+            <label for="gridRow">Breadth (mt.):</label>
+            <input class="form-control" id="gridRow" type="number" value="20">
+          </div>
+          <div class="col-md-2">
+            <label for="gridCol">Width (mt.):</label>
+            <input class="form-control" id="gridCol" type="number" value="20">
+          </div>
+          <div class="col-md-2">
+            <label for="fireRate">Fire Spread Rate (m/s):</label>
+            <input class="form-control" id="fireRate" type="number" value="0.2">
+          </div>
+          <div class="col-md-2">
+            <label for="personSpeed">Person Speed (m/s):</label>
+            <input class="form-control" id="personSpeed" type="number" value="3">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-dark btn-block" type="button" onclick="createGrid()">Visualizer</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-dark btn-block" type="button" onclick="findPath()">Find Path</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1 id="no-path" class="danger-text">
+        <p>💀 R.I.P 💀</p>
+        <p>no possible path</p>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table id="board"></table>
+    </div>
+  </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="../pathfinding//pathfinding-browser.js"></script>
+  <script src="../main.js"></script>
 </body>
-
-<script src="../main.js" type="text/javascript"></script>
 
 </html>
